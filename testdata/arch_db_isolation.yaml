@@ -1,0 +1,23 @@
+version: 1
+boundaries:
+  - name: Analytics
+    containers:
+      - name: api
+        type: service
+        tags: [acl]
+      - name: batch
+        type: service
+        tags: [repo]
+      - name: audit-db
+        type: database
+      - name: orphan-db
+        type: database
+    relations:
+      - from: batch
+        to: audit-db
+        kind: db
+      - from: orphan-db
+        to: api
+        kind: sync
+        description: misconfigured outbound relation
+externals: []

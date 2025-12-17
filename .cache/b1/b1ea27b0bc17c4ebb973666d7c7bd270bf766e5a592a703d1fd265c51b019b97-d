@@ -1,0 +1,5 @@
+# test log
+open ../../testdata/arch_valid.yaml
+open ../../testdata/arch_acl_violation.yaml
+open ../../testdata/arch_boundary_weak.yaml
+open ../../examples/music_streaming.yaml

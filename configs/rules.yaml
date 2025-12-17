@@ -1,0 +1,25 @@
+rules:
+  - id: ARCH-ACYCLIC
+    enabled: true
+  - id: ARCH-CRUD
+    enabled: true
+    config:
+      allowedTags: [crud, repo, relay, "data-service"]
+      exclusiveTags: [repo]
+  - id: ARCH-ACL
+    enabled: true
+    config:
+      allowedTags: [acl]
+  - id: ARCH-BOUNDARIES
+    enabled: true
+    config:
+      minInternalToCrossRatio: 1.5
+      maxCrossRelations: 5
+  - id: ARCH-EXTERNAL-PROTOCOL
+    enabled: true
+    config:
+      allowedPrefixes:
+        - https://gateway.
+        - kafka://
+  - id: ARCH-DB-ISOLATION
+    enabled: true

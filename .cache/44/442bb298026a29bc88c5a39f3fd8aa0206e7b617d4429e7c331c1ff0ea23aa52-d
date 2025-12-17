@@ -1,0 +1,8 @@
+# test log
+open ../../testdata/arch_valid.yaml
+open ../../testdata/arch_cycle.yaml
+open ../../testdata/arch_crud_violation.yaml
+open ../../testdata/arch_acl_violation.yaml
+open ../../testdata/arch_boundary_weak.yaml
+open ../../testdata/arch_external_protocol.yaml
+open ../../testdata/arch_db_isolation.yaml

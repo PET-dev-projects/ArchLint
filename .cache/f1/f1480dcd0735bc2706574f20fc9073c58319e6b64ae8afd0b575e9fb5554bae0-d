@@ -1,0 +1,4 @@
+./architecture.go
+./index.go
+./load.go
+./validate.go

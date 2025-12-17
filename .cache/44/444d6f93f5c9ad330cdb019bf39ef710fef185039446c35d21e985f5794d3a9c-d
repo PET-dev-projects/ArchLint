@@ -1,0 +1,5 @@
+# test log
+getenv TMPDIR
+open /tmp/TestLoadOptionsFromFile4104302016/001/rules.yaml
+open /tmp/TestLoadOptionsFromFile4104302016/001/rules.yaml
+open /tmp

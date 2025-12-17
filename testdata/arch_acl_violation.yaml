@@ -1,0 +1,25 @@
+version: 1
+boundaries:
+  - name: Core Services
+    containers:
+      - name: api
+        type: service
+      - name: repo
+        type: service
+        tags: [repo]
+      - name: db
+        type: database
+    relations:
+      - from: api
+        to: repo
+        kind: sync
+      - from: repo
+        to: db
+        kind: db
+      - from: api
+        to: audit
+        kind: sync
+        protocol: https://gateway.example/audit
+externals:
+  - name: audit
+    type: external

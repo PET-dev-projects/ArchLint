@@ -1,0 +1,23 @@
+version: 1
+boundaries:
+  - name: Reporting
+    containers:
+      - name: reports-api
+        type: service
+      - name: reports-worker
+        type: service
+    relations:
+      - from: reports-api
+        to: billing
+        kind: sync
+        protocol: https://gateway.example/billing
+      - from: reports-worker
+        to: billing
+        kind: sync
+        protocol: https://gateway.example/billing
+      - from: reports-api
+        to: reports-worker
+        kind: sync
+externals:
+  - name: billing
+    type: external

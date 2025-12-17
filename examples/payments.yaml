@@ -1,0 +1,34 @@
+version: 1
+meta:
+  source: sample
+boundaries:
+  - name: Payments
+    description: Online payments context
+    containers:
+      - name: payments-api
+        type: service
+        tags: [acl]
+        owner: payments-team
+      - name: payments-repo
+        type: service
+        tags: [repo]
+      - name: payments-db
+        type: database
+        technology: postgres
+    relations:
+      - from: payments-api
+        to: payments-repo
+        kind: sync
+        description: validate requests
+      - from: payments-repo
+        to: payments-db
+        kind: db
+        description: persist payments
+      - from: payments-api
+        to: antifraud
+        kind: sync
+        protocol: https://gateway.example/antifraud
+externals:
+  - name: antifraud
+    type: external
+    description: Third-party scoring

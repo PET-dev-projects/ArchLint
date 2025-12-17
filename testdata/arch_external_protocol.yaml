@@ -1,0 +1,21 @@
+version: 1
+boundaries:
+  - name: Core
+    containers:
+      - name: api
+        type: service
+        tags: [acl]
+      - name: payments-repo
+        type: service
+        tags: [repo]
+    relations:
+      - from: api
+        to: antifraud
+        kind: sync
+        protocol: http://public-gateway/antifraud
+      - from: payments-repo
+        to: antifraud
+        kind: async
+externals:
+  - name: antifraud
+    type: external

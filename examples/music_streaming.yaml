@@ -1,0 +1,274 @@
+version: 1
+meta:
+  owner: music-platform
+  description: Reference architecture for a large-scale streaming service similar to Spotify.
+boundaries:
+  - name: Playback & Streaming
+    description: Handles client playback sessions and streaming control.
+    tags: [core]
+    containers:
+      - name: playback-api
+        type: service
+        description: Ingress for mobile/desktop clients
+        tags: [acl]
+      - name: session-service
+        type: service
+        description: Maintains playback sessions and entitlements
+        tags: [crud]
+      - name: session-store
+        type: database
+        technology: aurora-postgres
+      - name: streaming-control
+        type: service
+        description: Coordinates CDN publishing for audio segments
+      - name: cdn-publisher
+        type: service
+        description: Pushes segments to the CDN
+        tags: [acl]
+    relations:
+      - from: playback-api
+        to: session-service
+        kind: sync
+        description: Resolve playback requests
+      - from: session-service
+        to: session-store
+        kind: db
+      - from: session-service
+        to: streaming-control
+        kind: sync
+        description: Allocate stream resources
+      - from: streaming-control
+        to: cdn-publisher
+        kind: async
+      - from: cdn-publisher
+        to: global-cdn
+        kind: async
+        protocol: https://gateway.cdn.music/publish
+        description: Push segments to global CDN
+      - from: playback-api
+        to: entitlement-service
+        kind: sync
+        description: Validate subscription entitlements
+      - from: streaming-control
+        to: listening-ingest
+        kind: async
+        description: Emit listening telemetry for personalization
+  - name: Catalog & Library
+    description: Stores tracks, playlists, and licensing constraints.
+    tags: [core]
+    containers:
+      - name: catalog-api
+        type: service
+        description: Serves metadata for tracks and playlists
+      - name: catalog-workflow
+        type: service
+        description: Orchestrates ingestion and publishing pipelines
+      - name: catalog-repo
+        type: service
+        tags: [repo]
+      - name: catalog-db
+        type: database
+        technology: aurora-postgres
+      - name: search-indexer
+        type: service
+      - name: licensing-proxy
+        type: service
+        description: Communicates with rights societies
+        tags: [acl]
+    relations:
+      - from: catalog-api
+        to: catalog-workflow
+        kind: sync
+      - from: catalog-workflow
+        to: catalog-repo
+        kind: sync
+      - from: catalog-repo
+        to: catalog-db
+        kind: db
+      - from: search-indexer
+        to: catalog-repo
+        kind: sync
+      - from: catalog-api
+        to: search-indexer
+        kind: async
+      - from: licensing-proxy
+        to: catalog-workflow
+        kind: sync
+      - from: licensing-proxy
+        to: rights-societies
+        kind: async
+        protocol: https://gateway.rights/music/compliance
+  - name: Personalization & ML
+    description: Builds recommendations and experimentation pipelines.
+    tags: [core]
+    containers:
+      - name: listening-ingest
+        type: service
+        description: Consumes playback events
+        tags: [crud]
+      - name: listening-store
+        type: database
+        technology: dynamodb
+      - name: feature-service
+        type: service
+        tags: [crud]
+      - name: feature-store
+        type: database
+        technology: redis
+      - name: model-service
+        type: service
+      - name: recommendation-api
+        type: service
+      - name: experiment-service
+        type: service
+    relations:
+      - from: listening-ingest
+        to: listening-store
+        kind: db
+      - from: listening-ingest
+        to: feature-service
+        kind: async
+      - from: feature-service
+        to: feature-store
+        kind: db
+      - from: model-service
+        to: feature-service
+        kind: sync
+        description: Fetch feature vectors for ranking
+      - from: recommendation-api
+        to: model-service
+        kind: sync
+      - from: experiment-service
+        to: recommendation-api
+        kind: sync
+      - from: recommendation-api
+        to: notification-relay
+        kind: async
+        description: Trigger personalized digests
+  - name: Monetization & Ads
+    description: Billing, revenue, and advertising stack.
+    tags: [growth]
+    containers:
+      - name: billing-api
+        type: service
+        tags: [acl]
+      - name: billing-ledger
+        type: service
+        tags: [crud]
+      - name: billing-db
+        type: database
+        technology: aurora-mysql
+      - name: billing-adapter
+        type: service
+        tags: [acl]
+      - name: ads-orchestrator
+        type: service
+      - name: ads-repo
+        type: service
+        tags: [repo]
+      - name: ads-db
+        type: database
+        technology: aurora-postgres
+      - name: reporting-service
+        type: service
+        tags: [crud]
+      - name: ad-broker
+        type: service
+        tags: [acl]
+    relations:
+      - from: billing-api
+        to: billing-ledger
+        kind: sync
+      - from: billing-ledger
+        to: billing-db
+        kind: db
+      - from: billing-ledger
+        to: billing-adapter
+        kind: sync
+      - from: billing-adapter
+        to: payment-gateway
+        kind: sync
+        protocol: https://gateway.billing/music/payments
+      - from: ads-orchestrator
+        to: ads-repo
+        kind: sync
+      - from: ads-repo
+        to: ads-db
+        kind: db
+      - from: reporting-service
+        to: ads-db
+        kind: db
+      - from: ads-orchestrator
+        to: ad-broker
+        kind: sync
+      - from: ad-broker
+        to: ad-network
+        kind: async
+        protocol: https://gateway.ads/music/delivery
+      - from: billing-ledger
+        to: audit-log
+        kind: async
+        description: Emit financial audit events
+  - name: Platform Services
+    description: Shared services such as identity, notification, and observability.
+    tags: [platform]
+    containers:
+      - name: identity-service
+        type: service
+      - name: entitlement-service
+        type: service
+        tags: [crud]
+      - name: entitlement-db
+        type: database
+        technology: postgres
+      - name: audit-log
+        type: service
+        tags: [crud]
+      - name: audit-db
+        type: database
+        technology: aurora-postgres
+      - name: notification-relay
+        type: service
+        tags: [acl]
+      - name: monitoring-pipeline
+        type: service
+        tags: [crud]
+      - name: data-warehouse
+        type: database
+        technology: redshift
+    relations:
+      - from: identity-service
+        to: entitlement-service
+        kind: sync
+      - from: entitlement-service
+        to: entitlement-db
+        kind: db
+      - from: audit-log
+        to: audit-db
+        kind: db
+      - from: monitoring-pipeline
+        to: data-warehouse
+        kind: db
+      - from: audit-log
+        to: monitoring-pipeline
+        kind: async
+      - from: notification-relay
+        to: email-provider
+        kind: async
+        protocol: https://gateway.comms/music/notify
+externals:
+  - name: global-cdn
+    type: external
+    description: Multi-region CDN
+  - name: rights-societies
+    type: external
+    description: Licensing authorities
+  - name: payment-gateway
+    type: external
+    description: External PSP
+  - name: ad-network
+    type: external
+    description: Real-time bidding network
+  - name: email-provider
+    type: external
+    description: Transactional email vendor
