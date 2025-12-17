@@ -6,7 +6,7 @@ Looking for Russian documentation? See `README.ru.md`, `docs/examples.ru.md`, an
 
 ## Features
 - Load architecture definitions from YAML (`examples/payments.yaml`).
-- Stress-test the engine with a Spotify-scale streaming service example (`examples/music_streaming.yaml`) that touches every rule.
+- Stress-test the engine with a Spotify-scale streaming service example (`examples/music_streaming.yaml`) that touches every rule (see `docs/music_streaming.md` for a diagram).
 - Structural validation with precise findings (version check, duplicate containers, unknown relations).
 - Built-in rules with stable IDs:
   - `ARCH-ACYCLIC` – detect dependency cycles.
