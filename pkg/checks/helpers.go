@@ -1,6 +1,6 @@
 package checks
 
-import "github.com/NovokshanovE/archlint/pkg/types"
+import "github.com/PET-dev-projects/ArchLint/pkg/types"
 
 func configFinding(ruleID string, err error) types.Finding {
 	return types.Finding{

@@ -7,11 +7,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/NovokshanovE/archlint/pkg/archlint"
-	"github.com/NovokshanovE/archlint/pkg/config"
-	"github.com/NovokshanovE/archlint/pkg/engine"
-	"github.com/NovokshanovE/archlint/pkg/report"
-	"github.com/NovokshanovE/archlint/pkg/types"
+	"github.com/PET-dev-projects/ArchLint/pkg/archlint"
+	"github.com/PET-dev-projects/ArchLint/pkg/config"
+	"github.com/PET-dev-projects/ArchLint/pkg/engine"
+	"github.com/PET-dev-projects/ArchLint/pkg/report"
+	"github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 
 func main() {

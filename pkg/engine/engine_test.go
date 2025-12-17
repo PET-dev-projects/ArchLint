@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/NovokshanovE/archlint/pkg/engine"
-	"github.com/NovokshanovE/archlint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/engine"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
 )
 
 func TestRunAllDefaultRules(t *testing.T) {

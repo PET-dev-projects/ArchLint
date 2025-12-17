@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/NovokshanovE/archlint/pkg/model"
-	"github.com/NovokshanovE/archlint/pkg/types"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 
 const externalProtocolRuleID = "ARCH-EXTERNAL-PROTOCOL"

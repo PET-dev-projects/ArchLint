@@ -1,4 +1,4 @@
-module github.com/NovokshanovE/archlint
+module github.com/PET-dev-projects/ArchLint
 
 go 1.22.0
 

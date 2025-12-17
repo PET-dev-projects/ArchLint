@@ -3,9 +3,9 @@ package archlint
 import (
 	"io"
 
-	"github.com/NovokshanovE/archlint/pkg/engine"
-	"github.com/NovokshanovE/archlint/pkg/model"
-	"github.com/NovokshanovE/archlint/pkg/types"
+	"github.com/PET-dev-projects/ArchLint/pkg/engine"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 
 // Options alias to engine Options for convenience.

@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/NovokshanovE/archlint/pkg/checks"
-	"github.com/NovokshanovE/archlint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/checks"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
 )
 
 func TestAcyclicRule(t *testing.T) {

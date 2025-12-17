@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/NovokshanovE/archlint/pkg/engine"
+	"github.com/PET-dev-projects/ArchLint/pkg/engine"
 )
 
 // File describes the YAML configuration file layout.

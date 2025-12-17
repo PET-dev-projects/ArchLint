@@ -1,6 +1,6 @@
 package checks
 
-import "github.com/NovokshanovE/archlint/pkg/model"
+import "github.com/PET-dev-projects/ArchLint/pkg/model"
 
 type relationRef = model.RelationRef
 

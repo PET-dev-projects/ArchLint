@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/NovokshanovE/archlint/pkg/config"
+	"github.com/PET-dev-projects/ArchLint/pkg/config"
 )
 
 func TestLoadOptionsFromFile(t *testing.T) {

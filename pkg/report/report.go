@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/NovokshanovE/archlint/pkg/types"
+	"github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 
 // WriteText renders findings as a plain-text list.

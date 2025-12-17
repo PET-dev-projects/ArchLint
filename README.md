@@ -81,8 +81,8 @@ package main
 import (
     "os"
 
-    "github.com/NovokshanovE/archlint/pkg/archlint"
-    "github.com/NovokshanovE/archlint/pkg/engine"
+    "github.com/PET-dev-projects/ArchLint/pkg/archlint"
+    "github.com/PET-dev-projects/ArchLint/pkg/engine"
 )
 
 func main() {

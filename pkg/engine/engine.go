@@ -3,9 +3,9 @@ package engine
 import (
 	"sort"
 
-	"github.com/NovokshanovE/archlint/pkg/checks"
-	"github.com/NovokshanovE/archlint/pkg/model"
-	"github.com/NovokshanovE/archlint/pkg/types"
+	"github.com/PET-dev-projects/ArchLint/pkg/checks"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 
 // Options tune engine execution behaviour.

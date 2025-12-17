@@ -5,7 +5,7 @@
 ## 1. Установка модуля
 
 ```
-go get github.com/NovokshanovE/archlint
+go get github.com/PET-dev-projects/ArchLint
 ```
 
 Импортируйте необходимые пакеты:
@@ -14,9 +14,9 @@ go get github.com/NovokshanovE/archlint
 import (
     "os"
 
-    "github.com/NovokshanovE/archlint/pkg/archlint"
-    "github.com/NovokshanovE/archlint/pkg/engine"
-    "github.com/NovokshanovE/archlint/pkg/types"
+    "github.com/PET-dev-projects/ArchLint/pkg/archlint"
+    "github.com/PET-dev-projects/ArchLint/pkg/engine"
+    "github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 ```
 
@@ -88,7 +88,7 @@ opts := engine.Options{
 Вместо ручной сборки `engine.Options`, загрузите их из YAML через `pkg/config`:
 
 ```go
-import "github.com/NovokshanovE/archlint/pkg/config"
+import "github.com/PET-dev-projects/ArchLint/pkg/config"
 
 opts, err := config.LoadOptionsFromFile("configs/rules.yaml")
 if err != nil {

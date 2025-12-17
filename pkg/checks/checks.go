@@ -1,8 +1,8 @@
 package checks
 
 import (
-	"github.com/NovokshanovE/archlint/pkg/model"
-	"github.com/NovokshanovE/archlint/pkg/types"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 
 // Rule describes a reusable architecture rule implementation.

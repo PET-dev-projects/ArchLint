@@ -5,7 +5,7 @@ This document targets developers embedding the Go module directly (without the C
 ## 1. Install the module
 
 ```
-go get github.com/NovokshanovE/archlint
+go get github.com/PET-dev-projects/ArchLint
 ```
 
 Import the packages you need:
@@ -14,9 +14,9 @@ Import the packages you need:
 import (
     "os"
 
-    "github.com/NovokshanovE/archlint/pkg/archlint"
-    "github.com/NovokshanovE/archlint/pkg/engine"
-    "github.com/NovokshanovE/archlint/pkg/types"
+    "github.com/PET-dev-projects/ArchLint/pkg/archlint"
+    "github.com/PET-dev-projects/ArchLint/pkg/engine"
+    "github.com/PET-dev-projects/ArchLint/pkg/types"
 )
 ```
 
@@ -88,7 +88,7 @@ opts := engine.Options{
 Instead of building `engine.Options` manually, load them from a YAML file using `pkg/config`:
 
 ```go
-import "github.com/NovokshanovE/archlint/pkg/config"
+import "github.com/PET-dev-projects/ArchLint/pkg/config"
 
 opts, err := config.LoadOptionsFromFile("configs/rules.yaml")
 if err != nil {

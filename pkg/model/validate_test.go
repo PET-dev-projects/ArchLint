@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/NovokshanovE/archlint/pkg/model"
+	"github.com/PET-dev-projects/ArchLint/pkg/model"
 )
 
 func TestValidateModel(t *testing.T) {
